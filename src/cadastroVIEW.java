@@ -1,3 +1,7 @@
+
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
@@ -14,6 +18,17 @@ public class cadastroVIEW extends javax.swing.JFrame {
      */
     public cadastroVIEW() {
         initComponents();
+        cadastroValor.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                char c = e.getKeyChar();
+                if (c == ',' || 
+                    c == '.' || 
+                    c == ' ') {
+                    e.consume(); 
+                }
+            }
+        });
     }
 
     /**
@@ -52,6 +67,12 @@ public class cadastroVIEW extends javax.swing.JFrame {
         cadastroNome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cadastroNomeActionPerformed(evt);
+            }
+        });
+
+        cadastroValor.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cadastroValorActionPerformed(evt);
             }
         });
 
@@ -157,6 +178,10 @@ public class cadastroVIEW extends javax.swing.JFrame {
         listagemVIEW listagem = new listagemVIEW(); 
         listagem.setVisible(true);
     }//GEN-LAST:event_btnProdutosActionPerformed
+
+    private void cadastroValorActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cadastroValorActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cadastroValorActionPerformed
 
     /**
      * @param args the command line arguments

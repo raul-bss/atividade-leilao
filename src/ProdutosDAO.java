@@ -25,10 +25,40 @@ public class ProdutosDAO {
     ResultSet resultset;
     ArrayList<ProdutosDTO> listagem;
     
-    public void cadastrarProduto (ProdutosDTO produto){
-        
-        
+    public Boolean cadastrarProduto (ProdutosDTO produto){    
         conn = new conectaDAO().connectDB();
+        
+        StringBuilder sb = new StringBuilder();
+        String comandoSQL;
+        Boolean retorno = false;
+        int linhasAfetadas;
+                   
+        sb.append("INSERT INTO produtos ");
+        sb.append("(nome, valor, status) ");
+        sb.append("VALUES ");
+        sb.append("(?,?,?)");
+        
+        comandoSQL = sb.toString();
+        
+        try{
+            
+            prep = conn.prepareStatement(comandoSQL);
+            prep.setString(1, produto.getNome());
+            prep.setInt(2, produto.getValor());
+            prep.setString(3, produto.getStatus());
+            
+            linhasAfetadas = prep.executeUpdate();
+            if(linhasAfetadas > 0){
+                retorno = true;
+            }
+            
+            conn.close();
+        }catch(Exception e){
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null, e.getMessage());
+        }
+        
+        return retorno;
         
         
     }
