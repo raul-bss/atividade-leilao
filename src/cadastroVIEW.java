@@ -1,6 +1,7 @@
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import javax.swing.JOptionPane;
 
 /*
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
@@ -162,18 +163,36 @@ public class cadastroVIEW extends javax.swing.JFrame {
 
     private void btnCadastrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCadastrarActionPerformed
         ProdutosDTO produto = new ProdutosDTO();
+        Boolean cadastrou;
+        
         String nome = cadastroNome.getText();
         String valor = cadastroValor.getText();
         String status = "A Venda";
+        
         produto.setNome(nome);
         produto.setValor(Integer.parseInt(valor));
         produto.setStatus(status);
         
         ProdutosDAO produtodao = new ProdutosDAO();
-        produtodao.cadastrarProduto(produto);
+        cadastrou = produtodao.cadastrarProduto(produto);
         
+        if(cadastrou){
+            mostraMensagem("Cadastro realizado com sucesso!");
+        }else{
+            mostraMensagem("Erro ao cadastrar produto.");
+        }
+        
+        limpaTela();    
     }//GEN-LAST:event_btnCadastrarActionPerformed
-
+    
+    public void mostraMensagem(String mensagem){
+        JOptionPane.showMessageDialog(rootPane, mensagem);
+    }
+    
+    private void limpaTela(){
+        cadastroNome.setText("");
+        cadastroValor.setText("");
+    }
     private void btnProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnProdutosActionPerformed
         listagemVIEW listagem = new listagemVIEW(); 
         listagem.setVisible(true);
