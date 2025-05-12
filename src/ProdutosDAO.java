@@ -134,8 +134,38 @@ public class ProdutosDAO {
             return listagem;
     }
     
-    
-    
+    public Boolean venderProduto(int id){
+        StringBuilder sb = new StringBuilder();
+        Boolean retorno;
+        String comandoSQL;
+        ProdutosDTO produto;
         
+        retorno = false;
+        conn = new conectaDAO().connectDB();            
+        sb.append("UPDATE produtos ");
+        sb.append("SET status = 'Vendido' ");
+        sb.append("WHERE id = ? ");
+
+        comandoSQL = sb.toString();
+
+        try{          
+            listagem = new ArrayList<>();
+            prep = conn.prepareStatement(comandoSQL);
+                
+            prep.setInt(1, id);
+                
+                
+            int linhasAfetadas = prep.executeUpdate();
+                
+            if(linhasAfetadas > 0){
+                retorno = true;
+            }
+                
+            
+        }catch(SQLException e){
+                System.out.println(e.getMessage());
+        }
+        return retorno;
+    }        
 }
 
